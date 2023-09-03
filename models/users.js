@@ -7,9 +7,10 @@ const userSchema = new mongoose.Schema({
   email: String,
   gender: String,
   bio: String,
-  socialLink: String,
-  achievements: String,
-  badges: String,
+  socialLink: Array,
+  achievements: Array,
+  badges: Array,
+  password: String,
 });
 
 const User = mongoose.model("user", userSchema);

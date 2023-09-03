@@ -1,14 +1,15 @@
 const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema({
+const projectSchema = new mongoose.Schema({
     userImg: String,
     username: String,
     title: String,
     desc: String,
+    imgs: Array,
     tags: String,
     status: String,
 });
 
-const Project = mongoose.model("project", userSchema);
+const Project = mongoose.model("project", projectSchema);
 
 module.exports = Project;
