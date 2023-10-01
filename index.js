@@ -5,7 +5,7 @@ require("dotenv").config();
 app.use(express.json());
 
 const mongoose = require("mongoose");
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.ltzoc1z.mongodb.net/?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.nzwjojj.mongodb.net/?retryWrites=true&w=majority`;
 mongoose
   .connect(uri)
   .then(() => console.log("Database is running"))
