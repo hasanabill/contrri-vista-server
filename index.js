@@ -1,15 +1,36 @@
 const express = require("express");
 const app = express();
-app.use(require("cors"));
+const cors = require("cors");
+app.use(cors());
 require("dotenv").config();
+// app.use(express.json());
+const mongoose = require("mongoose");
+
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.nzwjojj.mongodb.net/?retryWrites=true&w=majority`;
+const connectDB = async () => {
+  try {
+    await mongoose.connect(uri, {
+      useNewUrlParser: true,
+    });
+
+    console.log("Connected to MongoDB");
+  } catch (err) {
+    console.error(err.message);
+    // exit process with failure
+    process.exit(1);
+  }
+};
+connectDB();
 app.use(express.json());
 
-const mongoose = require("mongoose");
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.nzwjojj.mongodb.net/?retryWrites=true&w=majority`;
-mongoose
-  .connect(uri)
-  .then(() => console.log("Database is running"))
-  .catch((e) => console.log(`MongoDB Connection Error: ${e.message}`));
+app.get("/", (req, res) => {
+  res.send("Hello, World!");
+});
 
-const port = process.env.PORT;
+app.use("/api/users", require("./routes/api/users"));
+app.use("/api/auth", require("./routes/api/auth"));
+app.use("/api/profile", require("./routes/api/profile"));
+app.use("/api/projects", require("./routes/api/projects"));
+
+const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`server is running at port: ${port}`));
